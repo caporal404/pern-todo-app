@@ -1,11 +1,16 @@
+import { useTheme } from '../../providers/themeProvider';
 import { useTasks } from "../../providers/taskProvider"
 import './FilterControls.css'
 
 const FilterControls = () => {
+  const { theme } = useTheme()
   const { dispatch, filteredTasks, filter, setFilter } = useTasks()
 
   return (
-    <div className="filter-controls d-flex align-items-center justify-content-between py-3 px-4">
+    <div className={`
+      filter-controls d-flex align-items-center justify-content-between py-3 px-4
+      ${theme === 'DARK' && 'dark'}
+    `}>
       <span className="">{`${filteredTasks.length} tasks left`}</span>
 
       <div className="filters d-flex gap-4">
@@ -26,8 +31,11 @@ const FilterControls = () => {
       </div>
 
       <button 
-        className="btn p-0"
-        onClick={() => dispatch({type: 'CLEAR_COMPLETED'})}
+        className="btn btn-clear p-0"
+        onClick={() => {
+          dispatch({type: 'CLEAR_COMPLETED'})
+          setFilter('ALL')
+        }}
       >Clear completed</button>
     </div>
   )
