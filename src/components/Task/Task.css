@@ -2,48 +2,47 @@
   color: var(--purple-700);
 }
 
-.task label {
-  p {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden; 
-    font-size: .95em;
-    letter-spacing: -.5px;
-  }
-
-  p::first-letter { text-transform: capitalize; }
-
-  input {
-    appearance: none;
-    width: 20.85px;
-    height: 20px;
-    border: 1px solid var(--gray-300);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 200ms;
-  }
-
-  input:checked {
-    position: relative;
-    background: linear-gradient(var(--gradient));
-    border: 0;
-  }
-
-  input:checked::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 4px;
-    height: 8px;
-    translate: -50% -60%;
-    rotate: 45deg;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-  }
+.task p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+  font-size: .93em;
+  letter-spacing: -.5px;
 }
 
-.task.completed label p {
+.task p::first-letter { text-transform: capitalize; }
+
+.task input {
+  appearance: none;
+  width: 20.85px;
+  height: 20px;
+  border: 1px solid var(--gray-300);
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.task input:checked {
+  position: relative;
+  background: linear-gradient(var(--gradient));
+  border: 0;
+}
+
+.task input:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  translate: -50% -60%;
+  rotate: 45deg;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+}
+
+.task.completed p {
   text-decoration: line-through;
   color: var(--gray-300);
 }
@@ -64,6 +63,18 @@
   color: var(--gray-600);
 }
 
-/* .btn-remove:hover {
-  color: rgb(220,53,69);
-} */
+/*======= DARK THEME =======*/
+
+.task.dark {
+  background-color: var(--navy-900);
+  color: var(--purple-300);
+  border-color: var(--purple-800) !important;
+}
+
+.task.dark.completed p {
+  color: var(--purple-600);
+}
+
+.task.dark input {
+  border-color: var(--purple-700);
+}

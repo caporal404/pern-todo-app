@@ -34,3 +34,11 @@
   font-family: "Josefin Sans";
   font-weight: 400;
 }
+
+/*======= DARK THEME =======*/
+
+*.dark,
+*.dark::before,
+*.dark::after {
+  transition: all 250ms;
+}

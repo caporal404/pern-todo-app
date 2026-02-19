@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useTasks } from '../../providers/taskProvider';
+import { useTheme } from '../../providers/themeProvider';
 import './Task.css';
 
 const Task = ({ data : task }) => {
   const { editedTask, setEditedTask, dispatch } = useTasks();
+  const { theme } = useTheme()
 
   return (
-    <div 
-      className={`task d-flex py-3 px-4 border-bottom ${task.isCompleted && 'completed'}`}
-    >
+    <div className={`
+      task d-flex py-3 px-4 border-bottom 
+      ${task.isCompleted && 'completed'}
+      ${theme === 'DARK' && 'dark'}
+    `}>
       <label className='w-100 d-flex align-items-center'>
         <input
           type="checkbox"
