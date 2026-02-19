@@ -37,3 +37,14 @@ h2 {
   cursor: pointer;
 }
 
+
+/*======== DARK THEME =======*/
+
+.App.dark {
+  background-color: var(--navy-950);
+}
+
+.App.dark::before {
+  background-image: url('/assets/images/bg-desktop-dark.jpg');
+}
+
