@@ -5,14 +5,12 @@
   outline: none;
   border-radius: 5px;
   color: var(--navy-850);
-}
-
-.task-form input::placeholder {
-  color: var(--gray-600);
+  background-color: transparent;
 }
 
 .form-control {
   position: relative;
+  border: 0;
 }
 
 .form-control::after {
@@ -27,4 +25,19 @@
   margin: 0 1.5rem;
   border: 1px solid var(--gray-300);
   border-radius: 50%;
+  background-color: transparent;
+}
+
+/*====== DARK THEME ======*/
+
+.form-control.dark {
+  background-color: var(--navy-900);
+}
+
+.form-control.dark input {
+  color: var(--gray-600);
+}
+
+.form-control.dark::after {
+  border-color: var(--purple-700);
 }

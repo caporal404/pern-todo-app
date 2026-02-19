@@ -1,8 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useTheme } from '../../providers/themeProvider';
 import { useTasks } from '../../providers/taskProvider';
 import './TaskForm.css'
 
 const TaskForm = () => {
+  const { theme } = useTheme()
   const { editedTask, setEditedTask, dispatch } = useTasks()
   const [task, setTask] = useState(""); // Current task 
 
@@ -43,10 +45,10 @@ const TaskForm = () => {
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
-      <div className="form-control p-0">
+      <div className={`form-control ${theme === 'DARK' && 'dark'} p-0`}>
         <input
           type="text"
-          className="w-100 m-0 py-3 pe-3"
+          className='w-100 m-0 py-3 pe-3'
           value={task}
           onChange={e => setTask(e.target.value)}
           placeholder="Ajouter une tâche..."
