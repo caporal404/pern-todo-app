@@ -13,7 +13,7 @@ const Task = ({ data : task }) => {
       ${task.isCompleted && 'completed'}
       ${theme === 'DARK' && 'dark'}
     `}>
-      <label className='d-flex align-items-center'>
+      <label className='w-100 d-flex align-items-center'>
         <input
           type="checkbox"
           checked={task.isCompleted}
