@@ -2,16 +2,6 @@
   color: var(--purple-700);
 }
 
-.task p {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden; 
-  font-size: .93em;
-  letter-spacing: -.5px;
-}
-
-.task p::first-letter { text-transform: capitalize; }
-
 .task input {
   appearance: none;
   width: 20.85px;
@@ -42,12 +32,30 @@
   border-width: 0 2px 2px 0;
 }
 
+.task label {
+  width: calc(100% - (46px + 20px));
+}
+
+.task p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+  font-size: .93em;
+  letter-spacing: -.5px;
+}
+
+.task p::first-letter { text-transform: capitalize; }
+
 .task.completed p {
   text-decoration: line-through;
   color: var(--gray-300);
 }
 
-.task button {
+.controls {
+  margin-left: auto;
+}
+
+.controls button {
   background-color: transparent;
   border: 0;
   margin: 0;

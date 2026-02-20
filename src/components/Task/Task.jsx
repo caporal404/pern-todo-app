@@ -13,7 +13,7 @@ const Task = ({ data : task }) => {
       ${task.isCompleted && 'completed'}
       ${theme === 'DARK' && 'dark'}
     `}>
-      <label className='w-100 d-flex align-items-center'>
+      <label className='d-flex align-items-center'>
         <input
           type="checkbox"
           checked={task.isCompleted}
@@ -21,7 +21,7 @@ const Task = ({ data : task }) => {
           disabled={ editedTask == task } // Disabled on Edition Mode
         />
 
-        <p className="w-100 m-0 p-0 ps-4">
+        <p className="w-100 m-0 p-0 ps-4" title={task.value}>
           {task.value}
         </p>
       </label>
