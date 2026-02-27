@@ -1,4 +1,5 @@
 .task {
+  --current-bg: #fff;
   color: var(--purple-700);
 }
 
@@ -32,8 +33,11 @@
   border-width: 0 2px 2px 0;
 }
 
-.task input:hover {
-  border-color:  var(--purple-500);
+.task:not(.completed):hover input {
+  border-color: transparent;
+  background: 
+    linear-gradient(var(--current-bg)) padding-box,
+    var(--gradient) border-box;
 }
 
 .task label {
@@ -44,7 +48,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; 
-  /* font-size: .98rem; */
+  font-size: .93em;
   letter-spacing: -.5px;
 }
 
@@ -68,25 +72,24 @@
   cursor: pointer;
 }
 
-.btn-edit {
-  color: var(--blue-500);
-}
-
 .btn-edit:disabled {
-  color: var(--gray-300);;
+  color: var(--gray-300);
 }
 
 .btn-remove {
   color: var(--purple-600);
 }
 
-.task.completed .btn-remove {
-  color: var(--blue-500);
+.btn-edit i,
+.task.completed .btn-remove i {
+  background: var(--gradient);
+  background-clip: text;
+  color: transparent;
 }
 
 .task:hover {
   label {
-    width: calc(100% - (38px + 20px)) !important;
+    width: calc(100% - (38px + 20px));
   }
 
   .controls {
@@ -97,18 +100,19 @@
 /*======= DARK THEME =======*/
 
 .task.dark {
+  --current-bg: var(--navy-900);
   background-color: var(--navy-900);
   color: var(--purple-300);
   border-color: var(--purple-800) !important;
 }
 
 .task.dark.completed p,
-.btn-edit:disabled {
+.btn-edit:disabled i {
   color: var(--purple-600);
 }
 
 .task.dark input {
-  border-color: var(--purple-700);
+  border-color: var(--purple-800);
 }
 
 .task.dark:not(.completed) .btn-remove {
