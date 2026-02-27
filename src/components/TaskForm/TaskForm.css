@@ -1,11 +1,16 @@
 .task-form input {
   padding-left: calc(1.5rem + 20px + 1.5rem);
-  font-size: 1.1rem;
+  font-size: 1.35rem;
   border: 0;
   outline: none;
   border-radius: 5px;
   color: var(--navy-850);
   background-color: transparent;
+}
+
+.task-form input::first-letter {
+  text-transform: uppercase;
+  color: red;
 }
 
 .form-control {
@@ -23,7 +28,7 @@
   height: 20px;
   width: 20px;
   margin: 0 1.5rem;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--purple-100);
   border-radius: 50%;
   background-color: transparent;
 }
@@ -35,7 +40,7 @@
 }
 
 .form-control.dark input {
-  color: var(--gray-600);
+  color: var(--purple-300);
 }
 
 .form-control.dark::after {

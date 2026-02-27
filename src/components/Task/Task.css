@@ -6,7 +6,7 @@
   appearance: none;
   width: 20.85px;
   height: 20px;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--purple-100);
   border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
@@ -15,7 +15,7 @@
 
 .task input:checked {
   position: relative;
-  background: linear-gradient(var(--gradient));
+  background: var(--gradient);
   border: 0;
 }
 
@@ -32,6 +32,10 @@
   border-width: 0 2px 2px 0;
 }
 
+.task input:hover {
+  border-color:  var(--purple-500);
+}
+
 .task label {
   cursor: pointer;
 }
@@ -40,7 +44,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; 
-  font-size: .93em;
+  /* font-size: .98rem; */
   letter-spacing: -.5px;
 }
 
@@ -76,9 +80,13 @@
   color: var(--purple-600);
 }
 
+.task.completed .btn-remove {
+  color: var(--blue-500);
+}
+
 .task:hover {
   label {
-    width: calc(100% - (46px + 20px)) !important;
+    width: calc(100% - (38px + 20px)) !important;
   }
 
   .controls {
@@ -94,10 +102,17 @@
   border-color: var(--purple-800) !important;
 }
 
-.task.dark.completed p {
+.task.dark.completed p,
+.btn-edit:disabled {
   color: var(--purple-600);
 }
 
 .task.dark input {
   border-color: var(--purple-700);
 }
+
+.task.dark:not(.completed) .btn-remove {
+  color: var(--gray-600);
+}
+
+

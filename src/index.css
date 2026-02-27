@@ -9,7 +9,11 @@
 :root {
   /* Primary */
   --blue-500: hsl(220, 98%, 61%);
-  --gradient: 135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%);
+  --gradient: linear-gradient(
+      135deg, 
+      hsl(192, 100%, 67%), 
+      hsl(280, 87%, 65%)
+    );
   --purple-300: hsl(234, 39%, 85%);
   --gray-600: hsl(236, 9%, 61%);
 
@@ -22,6 +26,7 @@
   --navy-950: hsl(235, 21%, 11%);
   --navy-900: hsl(235, 24%, 19%);
   --purple-100: hsl(236, 33%, 92%);
+  --purple-500: hsl(233, 15%, 66%);
   --purple-600: hsl(235, 16%, 43%);
   --purple-700: hsl(233, 14%, 35%);
   --purple-800: hsl(237, 14%, 26%);

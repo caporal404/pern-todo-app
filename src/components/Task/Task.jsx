@@ -26,7 +26,7 @@ const Task = ({ data : task }) => {
         </p>
       </label>
 
-      <div className="controls d-flex gap-3">
+      <div className="controls d-flex gap-2">
         <button className='btn btn-edit' 
           onClick={() => setEditedTask(task)} 
           disabled={ editedTask == task || task.isCompleted } // Disabled on Edition Mode
