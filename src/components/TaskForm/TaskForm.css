@@ -8,11 +8,6 @@
   background-color: transparent;
 }
 
-.task-form input::first-letter {
-  text-transform: uppercase;
-  color: red;
-}
-
 .form-control {
   position: relative;
   border: 0;

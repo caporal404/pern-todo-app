@@ -11,7 +11,7 @@ const TaskForm = () => {
   // the current task began the edited task during Edition (Modification) Mode
   useEffect(() => editedTask && setTask(editedTask.value), [editedTask]) // editedTask : { id, value, isCompleted }
 
-  // Focus the input field when component render
+  // Focus on input field when component render
   const inputRef = useRef()
   useLayoutEffect(() => inputRef.current.focus())
 
@@ -50,7 +50,10 @@ const TaskForm = () => {
           type="text"
           className='w-100 m-0 py-3 pe-3'
           value={task}
-          onChange={e => setTask(e.target.value)}
+          onChange={e => {
+            const value = e.target.value
+            setTask(value.charAt(0).toUpperCase() + value.slice(1))
+          }}
           placeholder="Ajouter une tâche..."
           ref={inputRef}
           required
