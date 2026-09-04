@@ -60,12 +60,12 @@ export const updateTodo = async (req, res) => {
   }
 }
 
-export const removeTodo = async (req, res) => {
+export const deleteTodo = async (req, res) => {
   const id = parseInt(req.params.id)
 
   try {
     const results = await pool.query(SQL_DELETE_TODO, [id])
-    res.status(200).send(`Todo removed with ID: ${id}`)
+    res.status(200).send(`Todo deleted with ID: ${id}`)
   } catch(error) {
     throw error
   }
