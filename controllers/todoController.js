@@ -1,4 +1,4 @@
-import pool from "../db.js"
+import pool from "../config/db.js"
 
 const SQL_SELECT_TODOS = 'SELECT * FROM todos ORDER BY id ASC'
 const SQL_SELECT_TODO = 'SELECT * FROM todos WHERE id=$1'
@@ -10,9 +10,15 @@ const SQL_DELETE_TODO = 'DELETE FROM todos WHERE id=$1'
 export const getTodos = async (req, res) => {
   try {
     const results = await pool.query(SQL_SELECT_TODOS)
-    res.status(200).json(results.rows)
+
+    res.status(200).json({
+      status: "success",
+      data: results.rows
+    })
+
   } catch(error) {
-    throw error
+    console.error(error.message)
+    res.status(500).json({ error: "Internal server error" })
   }
 }
 
@@ -21,9 +27,18 @@ export const getTodoById = async (req, res) => {
 
   try {
     const results = await pool.query(SQL_SELECT_TODO, [id])
-    res.status(200).json(results.rows)
+
+    if(results.rows.length === 0) {
+      return res.status(404).json({ error: `Todo not found with ID: ${id}` })
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: results.rows
+    })
   } catch(error) {
-    throw error
+    console.error(error.message)
+    res.status(500).json({ error: "Internal server error" })
   }
 }
 
@@ -32,9 +47,14 @@ export const createTodo = async (req, res) => {
 
   try {
     const results = await pool.query(SQL_INSERT_TODO, [value, isCompleted, isEditing])
-    res.status(201).send(`Todo added with ID: ${results.rows[0].id}`)
+    
+    res.status(201).json({
+      status: "success",
+      data: results.rows
+    })
   } catch(error) {
-    throw error
+    console.error(error.message)
+    res.status(500).json({ error: "Internal server error" })
   }
 }
 
@@ -44,9 +64,15 @@ export const updateTodo = async (req, res) => {
 
   try {
     const results = await pool.query(SQL_UPDATE_TODO, [value, isCompleted, isEditing, id])
+    
+    if(results.rowCount === 0) {
+      return res.status(404).json({ error: `Todo not found with ID: ${id}` })
+    }
+    
     res.status(200).send(`Todo edited with ID: ${id}`)
   } catch(error) {
-    throw error
+    console.error(error.message)
+    res.status(500).json({ error: "Internal server error" })
   }
 }
 
@@ -55,8 +81,14 @@ export const deleteTodo = async (req, res) => {
 
   try {
     const results = await pool.query(SQL_DELETE_TODO, [id])
+
+    if(results.rowCount === 0) {
+      return res.status(404).json({ error: `Todo not found with ID: ${id}` })
+    }
+
     res.status(200).send(`Todo deleted with ID: ${id}`)
   } catch(error) {
-    throw error
+    console.error(error.message)
+    res.status(500).json({ error: "Internal server error" })
   }
 }
