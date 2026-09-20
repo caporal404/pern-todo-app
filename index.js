@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config"
-import todoRoutes from "./routes/todoRoutes";
+import todoRoutes from "./routes/todoRoutes.js";
 
 const app = express()
 const PORT = process.env.APP_PORT
