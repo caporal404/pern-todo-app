@@ -1,20 +1,22 @@
 import express from "express";
 import "dotenv/config"
-import * as db from "./queries.js";
+import todoRoutes from "./routes/todoRoutes";
 
 const app = express()
-const port = process.env.APP_PORT
+const PORT = process.env.APP_PORT
+
+app.use(express.json())
+app.use(express.urlencoded({
+  extended: true
+}))
 
 app.get("/", (req, res) => {
-  res.json({ info: "This is the backend for a simple todo app with Node.js, Express and PostgreSQL"})
+  res.json({ info: "This is the backend for a simple PERN todo app"})
 })
 
-app.get('/api/todos', db.getTodos)
-app.get('/api/todos/:id', db.getTodoById)
-app.post('/api/todos', db.createTodo)
-app.patch('/api/todos/:id', db.updateTodo)
-app.delete('/api/todos/:id', db.deleteTodo)
+// API Routes
+app.use('/api/todos', todoRoutes)
 
-app.listen(port, () => {
-  console.log(`App successful running on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`App successful running on port ${PORT}`)
 })

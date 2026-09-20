@@ -13,7 +13,6 @@ const SQL_SELECT_TODOS = 'SELECT * FROM todos ORDER BY id ASC'
 const SQL_SELECT_TODO = 'SELECT * FROM todos WHERE id=$1'
 const SQL_INSERT_TODO = 'INSERT INTO todos (value, is_completed, is_editing) VALUES ($1, $2, $3) RETURNING *'
 // const SQL_UPDATE_TODO = 'UPDATE todos SET value=$1, is_completed=$2, is_editing=$3 WHERE id=$4'
-const SQL_UPDATE_TODO = 'UPDATE todos SET $1=$2 WHERE id=$3'
 const SQL_DELETE_TODO = 'DELETE FROM todos WHERE id=$1'
 
 
@@ -52,8 +51,10 @@ export const updateTodo = async (req, res) => {
   const id = parseInt(req.params.id)
   const { field, value } = req.body
 
+  const SQL_UPDATE_TODO = `UPDATE todos SET ${field}=$1 WHERE id=$2`
+
   try {
-    const results = await pool.query(SQL_UPDATE_TODO, [field, value, id])
+    const results = await pool.query(SQL_UPDATE_TODO, [value, id])
     res.status(200).send(`Todo edited with ID: ${id}`)
   } catch(error) {
     throw error
