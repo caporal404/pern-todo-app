@@ -1,12 +1,12 @@
 {
-  "name": "fullstack-todo-app",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "The backend for a simple todo app",
+  "description": "The backend for a simple PERN todo app",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "kevin-code",
   "license": "MIT",
