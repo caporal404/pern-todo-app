@@ -29,13 +29,14 @@ export const getTodoById = async (req, res) => {
     const results = await pool.query(SQL_SELECT_TODO, [id])
 
     if(results.rows.length === 0) {
-      return res.status(404).json({ error: `Todo not found with ID: ${id}` })
+      return res.status(404).json({ error: `Todo not found` })
     }
 
     res.status(200).json({
       status: "success",
-      data: results.rows
+      data: results.rows[0]
     })
+
   } catch(error) {
     console.error(error.message)
     res.status(500).json({ error: "Internal server error" })
@@ -50,8 +51,10 @@ export const createTodo = async (req, res) => {
     
     res.status(201).json({
       status: "success",
+      message: "Todo successfully added",
       data: results.rows
     })
+
   } catch(error) {
     console.error(error.message)
     res.status(500).json({ error: "Internal server error" })
@@ -66,10 +69,14 @@ export const updateTodo = async (req, res) => {
     const results = await pool.query(SQL_UPDATE_TODO, [value, isCompleted, isEditing, id])
     
     if(results.rowCount === 0) {
-      return res.status(404).json({ error: `Todo not found with ID: ${id}` })
+      return res.status(404).json({ error: "Todo not found" })
     }
     
-    res.status(200).send(`Todo edited with ID: ${id}`)
+    res.status(200).json({ 
+      status: "success",
+      message: "Todo successfully edited" 
+    })
+
   } catch(error) {
     console.error(error.message)
     res.status(500).json({ error: "Internal server error" })
@@ -83,10 +90,14 @@ export const deleteTodo = async (req, res) => {
     const results = await pool.query(SQL_DELETE_TODO, [id])
 
     if(results.rowCount === 0) {
-      return res.status(404).json({ error: `Todo not found with ID: ${id}` })
+      return res.status(404).json({ error: "Todo not found" })
     }
 
-    res.status(200).send(`Todo deleted with ID: ${id}`)
+    res.status(200).json({ 
+      status: "success",
+      message: "Todo successfully deleted" 
+    })
+    
   } catch(error) {
     console.error(error.message)
     res.status(500).json({ error: "Internal server error" })
