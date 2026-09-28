@@ -11,9 +11,13 @@
   "author": "kevin-code",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "nodemon": "^3.1.14",
     "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2"
   }
 }
