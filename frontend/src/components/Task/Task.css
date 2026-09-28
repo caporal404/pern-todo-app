@@ -1,0 +1,123 @@
+.task {
+  --current-bg: #fff;
+  color: var(--purple-700);
+}
+
+.task-toggle {
+  appearance: none;
+  width: 20.85px;
+  height: 20px;
+  border: 1px solid var(--purple-100);
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 200ms;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.task-toggle.checked {
+  background: var(--gradient);
+  border: 0;
+}
+
+.task-toggle.checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  translate: -50% -60%;
+  rotate: 45deg;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+}
+
+.task:not(.completed):hover .task-toggle {
+  border-color: transparent;
+  background: 
+    linear-gradient(var(--current-bg)) padding-box,
+    var(--gradient) border-box;
+}
+
+.task label {
+  cursor: pointer;
+}
+
+.task p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+  font-size: .93em;
+  letter-spacing: -.5px;
+}
+
+.task p::first-letter { text-transform: capitalize; }
+
+.task.completed p {
+  text-decoration: line-through;
+  color: var(--gray-300);
+}
+
+.controls {
+  display: none !important;
+  margin-left: auto;
+}
+
+.controls button {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btn-edit:disabled {
+  color: var(--gray-300);
+}
+
+.btn-remove {
+  color: var(--purple-600);
+}
+
+.btn-edit i,
+.task.completed .btn-remove i {
+  background: var(--gradient);
+  background-clip: text;
+  color: transparent;
+}
+
+.task:hover {
+  label {
+    width: calc(100% - (38px + 20px));
+  }
+
+  .controls {
+    display: flex !important;
+  }
+}
+
+/*======= DARK THEME =======*/
+
+.task.dark {
+  --current-bg: var(--navy-900);
+  background-color: var(--navy-900);
+  color: var(--purple-300);
+  border-color: var(--purple-800) !important;
+}
+
+.task.dark.completed p,
+.btn-edit:disabled i {
+  color: var(--purple-600);
+}
+
+.task.dark .task-toggle {
+  border-color: var(--purple-800);
+}
+
+.task.dark:not(.completed) .btn-remove {
+  color: var(--gray-600);
+}
+
+

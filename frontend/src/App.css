@@ -1,0 +1,50 @@
+.App {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
+}
+
+.App::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 40%;
+  background: url('/assets/images/bg-desktop-light.jpg') center/cover no-repeat;
+}
+
+.container {
+  z-index: 2;
+  margin-top: 10%;
+  width: 70vw;
+  max-width: 550px;
+}
+
+h2 {
+  font-size: 1.8em;
+  font-weight: 700;
+  letter-spacing: 15px;
+  color: #fff;
+  height: auto;
+}
+
+.btn-theme {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+
+/*======== DARK THEME =======*/
+
+.App.dark {
+  background-color: var(--navy-950);
+}
+
+.App.dark::before {
+  background-image: url('/assets/images/bg-desktop-dark.jpg');
+}
+
