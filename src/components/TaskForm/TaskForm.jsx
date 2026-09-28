@@ -5,7 +5,7 @@ import './TaskForm.css'
 
 const TaskForm = () => {
   const { theme } = useTheme()
-  const { editedTask, setEditedTask, dispatch } = useTasks()
+  const { editedTask, setEditedTask, addTask, editTask } = useTasks()
   const [task, setTask] = useState(""); // Current task 
 
   // the current task began the edited task during Edition (Modification) Mode
@@ -27,17 +27,14 @@ const TaskForm = () => {
     }
 
     // Add task if isn't Edition Mode else edit task
-    if (!editedTask) dispatch({
-      type: 'ADD',
-      payload: task
-    })
-    else dispatch({ 
-      type: 'EDIT',
-      payload: {
-        id: editedTask.id, 
-        newValue: task
-      }
-    })
+    if (!editedTask) {
+      addTask(task)
+    }
+    else {
+      editTask(editedTask, {
+        value: task
+      })
+    }
 
     setTask("") // Clear input field
     setEditedTask(undefined) // Leave Edition Mode

@@ -4,7 +4,7 @@ import './FilterControls.css'
 
 const FilterControls = () => {
   const { theme } = useTheme()
-  const { dispatch, filteredTasks, filter, setFilter } = useTasks()
+  const { clearCompletedTasks, filteredTasks, filter, setFilter } = useTasks()
 
   return (
     <div className={`
@@ -33,7 +33,7 @@ const FilterControls = () => {
       <button 
         className="btn btn-clear p-0"
         onClick={() => {
-          dispatch({type: 'CLEAR_COMPLETED'})
+          clearCompletedTasks()
           setFilter('ALL')
         }}
       >Clear completed</button>

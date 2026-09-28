@@ -7,7 +7,7 @@ const TaskList = () => {
 
   return (
     <Reorder.Group 
-      className="task-list"
+      className="task-list ps-0 mb-0"
       axis='y'
       values={tasks}
       onReorder={setFilteredTasks}
