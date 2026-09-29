@@ -4,7 +4,7 @@ import { API_URL } from './api'
 export const taskService = {
   async fetchTasks() {
     try {
-      const response = await axios.get(`${API_URL}/todos`)
+      const response = await axios.get(`${API_URL}/api/todos`)
       return response.data?.data ?? []
     } catch (error) {
       console.error('Error fetching tasks:', error)
@@ -14,7 +14,7 @@ export const taskService = {
 
   async addTask(value) {
     try {
-      const response = await axios.post(`${API_URL}/todos`, {
+      const response = await axios.post(`${API_URL}/api/todos`, {
         value: String(value).trim(),
         isCompleted: false,
         isEditing: false
@@ -29,7 +29,7 @@ export const taskService = {
 
   async removeTask(id) {
     try {
-      await axios.delete(`${API_URL}/todos/${id}`)
+      await axios.delete(`${API_URL}/api/todos/${id}`)
       return true
     } catch (error) {
       console.error('Error deleting task:', error)
@@ -39,7 +39,7 @@ export const taskService = {
 
   async editTask(task, taskData) {
     try {
-      await axios.put(`${API_URL}/todos/${task.id}`, {
+      await axios.put(`${API_URL}/api/todos/${task.id}`, {
         ...task,
         ...taskData
       })
@@ -59,7 +59,7 @@ export const taskService = {
       const completedTasks = tasks.filter(task => task.isCompleted)
 
       await Promise.all(
-        completedTasks.map(task => axios.delete(`${API_URL}/todos/${task.id}`))
+        completedTasks.map(task => axios.delete(`${API_URL}/api/todos/${task.id}`))
       )
 
       return tasks.filter(task => !task.isCompleted)
