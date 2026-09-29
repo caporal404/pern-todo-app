@@ -4,7 +4,7 @@ import "dotenv/config"
 import todoRoutes from "./routes/todoRoutes.js";
 
 const app = express()
-const PORT = process.env.APP_PORT
+const PORT = process.env.PORT
 
 app.use(express.json())
 app.use(express.urlencoded({
