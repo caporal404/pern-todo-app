@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "seed": "node backend/seeds/todos.js"
+    "seed": "node seeds/todos.js"
   },
   "author": "kevin-code",
   "license": "MIT",
