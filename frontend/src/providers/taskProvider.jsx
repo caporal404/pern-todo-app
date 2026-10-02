@@ -74,10 +74,6 @@ const TaskProvider = ({ children }) => {
 
   const editTask = async (task, taskData) => {
     try {
-      console.log({
-        ...task,
-        ...taskData
-      })
       await taskService.editTask(task, taskData)
 
       await fetchTasks()

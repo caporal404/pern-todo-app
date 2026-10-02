@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config"
 import todoRoutes from "./routes/todoRoutes.js";
+import { normalize } from "./utils.js";
 
 const app = express()
 const PORT = process.env.PORT
