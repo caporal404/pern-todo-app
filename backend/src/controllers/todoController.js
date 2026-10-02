@@ -3,8 +3,8 @@ import { normalize } from "../utils.js"
 
 const SQL_SELECT_TODOS = 'SELECT * FROM todos ORDER BY id ASC'
 const SQL_SELECT_TODO = 'SELECT * FROM todos WHERE id=$1'
-const SQL_INSERT_TODO = 'INSERT INTO todos (value, is_completed, is_editing) VALUES ($1, $2, $3) RETURNING *'
-const SQL_UPDATE_TODO = 'UPDATE todos SET value=$1, is_completed=$2, is_editing=$3 WHERE id=$4'
+const SQL_INSERT_TODO = 'INSERT INTO todos (value, is_completed) VALUES ($1, $2) RETURNING *'
+const SQL_UPDATE_TODO = 'UPDATE todos SET value=$1, is_completed=$2 WHERE id=$3'
 const SQL_DELETE_TODO = 'DELETE FROM todos WHERE id=$1'
 
 
@@ -43,10 +43,10 @@ export const getTodoById = async (req, res) => {
 }
 
 export const createTodo = async (req, res) => {
-  const { value, isCompleted, is_editing } = req.body
+  const { value, isCompleted } = req.body
 
   try {
-    const results = await pool.query(SQL_INSERT_TODO, [value, isCompleted, is_editing || false])
+    const results = await pool.query(SQL_INSERT_TODO, [value, isCompleted])
     
     res.status(201).json({
       message: "Todo successfully added",
@@ -61,10 +61,10 @@ export const createTodo = async (req, res) => {
 
 export const updateTodo = async (req, res) => {
   const id = parseInt(req.params.id)
-  const { value, isCompleted, is_editing } = req.body
+  const { value, isCompleted } = req.body
 
   try {
-    const results = await pool.query(SQL_UPDATE_TODO, [value, isCompleted, is_editing || false, id])
+    const results = await pool.query(SQL_UPDATE_TODO, [value, isCompleted, id])
     
     if(results.rowCount === 0) {
       return res.status(404).json({ error: "Todo not found" })
