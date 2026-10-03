@@ -47,3 +47,7 @@
 *.dark::after {
   transition: all 250ms;
 }
+
+.loader {
+  height: 150px;
+}

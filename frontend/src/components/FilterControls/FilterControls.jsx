@@ -1,10 +1,24 @@
 import { useTheme } from '../../providers/themeProvider';
 import { useTasks } from "../../providers/taskProvider"
 import './FilterControls.css'
+import toast from 'react-hot-toast';
+import Loader from '../Loader';
 
 const FilterControls = () => {
   const { theme } = useTheme()
-  const { clearCompletedTasks, filteredTasks, filter, setFilter } = useTasks()
+  const { clearCompletedTasks, filteredTasks, filter, setFilter, loadingAction } = useTasks()
+
+  const handleClearCompleted = () => {
+    toast.promise(
+      clearCompletedTasks(),
+      {
+        success: 'Completed tasks cleared!',
+        error: 'Error clearing completed tasks!'
+      }
+    )
+
+    setFilter('ALL')
+  }
 
   return (
     <div className={`
@@ -23,20 +37,20 @@ const FilterControls = () => {
           className={`btn btn-filter ${filter === 'ACTIVE' && 'active'}`}
           onClick={() => setFilter('ACTIVE')}
         >Active</button>
-    
+
         <button
           className={`btn btn-filter ${filter === 'COMPLETED' && 'active'}`}
           onClick={() => setFilter('COMPLETED')}
         >Completed</button>
       </div>
 
-      <button 
+      <button
         className="btn btn-clear p-0"
-        onClick={() => {
-          clearCompletedTasks()
-          setFilter('ALL')
-        }}
-      >Clear completed</button>
+        onClick={handleClearCompleted}
+      >{loadingAction?.type === 'clearCompleted'
+        ? <><Loader /> Clearing...</>
+        : 'Clear completed'}
+      </button>
     </div>
   )
 }

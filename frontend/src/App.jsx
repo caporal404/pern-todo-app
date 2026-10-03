@@ -1,10 +1,12 @@
+import { Toaster } from 'react-hot-toast';
 import { useTheme } from './providers/themeProvider'
 import TaskForm from './components/TaskForm/TaskForm';
 import TaskList from './components/TaskList/TaskList';
 import FilterControls from './components/FilterControls/FilterControls';
+import './App.css'
+
 import iconMoon from '/assets/images/icon-moon.svg'
 import iconSun from '/assets/images/icon-sun.svg'
-import './App.css'
 
 function App() {
   const { theme, toggleTheme } = useTheme()
@@ -12,6 +14,8 @@ function App() {
   return (
     <div className={`App ${theme === 'DARK' && 'dark'}`}>
       <div className="container">
+        <Toaster />
+        
         <div className="d-flex justify-content-beetwen mb-4">
           <h2 className='w-100 m-0 text-left'>TODO</h2>
 

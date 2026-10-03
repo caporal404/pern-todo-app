@@ -1,12 +1,18 @@
 import { Reorder } from 'framer-motion';
 import { useTasks } from '../../providers/taskProvider';
 import Task from '../Task/Task'
+import Loader from '../Loader';
 
 const TaskList = () => {
-  const { tasks, filteredTasks, setFilteredTasks } = useTasks()
+  const { tasks, filteredTasks, setFilteredTasks, loadingAction } = useTasks()
 
-  if (!filteredTasks.length) {
-    return <div className="bg-white d-flex flex-column gap-2 justify-content-center align-items-center py-5 border-bottom border-2">
+  if(loadingAction?.type === 'fetch') {
+    return <div className="screen d-flex justify-content-center text-center">
+      <Loader />
+    </div>
+  }
+  else if (!filteredTasks.length) {
+    return <div className="screen bg-white d-flex flex-column gap-2 justify-content-center align-items-center border-bottom border-2">
       <img src='/assets/images/container.svg' alt="Empty Tasks Icon" className="text-gray" height={50} width={50} />
       <span className="fs-6">No added tasks yet</span>
     </div>

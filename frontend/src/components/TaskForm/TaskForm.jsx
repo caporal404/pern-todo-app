@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTheme } from '../../providers/themeProvider';
 import { useTasks } from '../../providers/taskProvider';
 import './TaskForm.css'
+import toast from 'react-hot-toast';
 
 const TaskForm = () => {
   const { theme } = useTheme()
@@ -28,12 +29,22 @@ const TaskForm = () => {
 
     // Add task if isn't Edition Mode else edit task
     if (!editedTask) {
-      addTask(task)
+      toast.promise(
+        addTask(task),
+        {
+          success: 'Task added!',
+          error: 'Error adding task!'
+        }
+      )
     }
     else {
-      editTask(editedTask, {
-        value: task
-      })
+      toast.promise(
+        editTask(editedTask, { value: task }, 'edit'),
+        {
+          success: 'Task updated!',
+          error: 'Error updating task!'
+        }
+      )
     }
 
     setTask("") // Clear input field

@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { taskService } from '../services/taskService'
 
 const TaskContext = createContext()
@@ -13,12 +14,20 @@ const TaskProvider = ({ children }) => {
   const [editedTask, setEditedTask] = useState(undefined)
   const [filter, setFilter] = useState('ALL')
 
+  // Loading action state to track ongoing operations
+  const [loadingAction, setLoadingAction] = useState(undefined)
+
   const fetchTasks = async () => {
     try {
+      setLoadingAction({ type: 'fetch' })
+
       const loadedTasks = await taskService.fetchTasks()
+
       setTasks(loadedTasks)
+      setLoadingAction(undefined)
     } catch (error) {
       console.error('Error fetching tasks:', error)
+      toast.error('Error fetching tasks')
     }
   }
 
@@ -54,41 +63,45 @@ const TaskProvider = ({ children }) => {
     }
   }
 
-  const toggleTask = async (task) => {
-    try {
-      await taskService.toggleTask(task)
-      await fetchTasks()
-    } catch (error) {
-      console.error('Error toggling task:', error)
-    }
-  }
-
   const removeTask = async (id) => {
     try {
+      setLoadingAction({ task: id, type: 'delete' })
+
       await taskService.removeTask(id)
+
       setTasks(prevTasks => prevTasks.filter(task => task.id !== id))
     } catch (error) {
       console.error('Error deleting task:', error)
+    } finally {
+      setLoadingAction(undefined)
     }
   }
 
-  const editTask = async (task, taskData) => {
+  const editTask = async (task, taskData, action = 'edit') => {
     try {
-      await taskService.editTask(task, taskData)
+      setLoadingAction({ task: task.id, type: action })
 
+      await taskService.editTask(task, taskData)
       await fetchTasks()
     } catch (error) {
       console.error('Error editing task:', error)
+    } finally {
+      setLoadingAction(undefined)
     }
   }
 
   const clearCompletedTasks = async () => {
     try {
+      setLoadingAction({ type: 'clearCompleted' })
+
       const remainingTasks = await taskService.clearCompleted(tasks)
+
       setTasks(remainingTasks)
       setFilter('ALL')
     } catch (error) {
       console.error('Error clearing completed tasks:', error)
+    } finally {
+      setLoadingAction(undefined)
     }
   }
 
@@ -101,11 +114,11 @@ const TaskProvider = ({ children }) => {
       filter,
       setFilter,
       addTask,
-      toggleTask,
       removeTask,
       editTask,
       clearCompletedTasks,
-      fetchTasks
+      fetchTasks,
+      loadingAction
     }}>
       {children}
     </TaskContext.Provider>
