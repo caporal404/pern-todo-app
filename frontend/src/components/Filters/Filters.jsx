@@ -1,12 +1,15 @@
-import { useTheme } from '../../providers/themeProvider';
-import { useTasks } from "../../providers/taskProvider"
-import './FilterControls.css'
 import toast from 'react-hot-toast';
+import { useTasks } from "../../providers/taskProvider"
+import { useTheme } from '../../providers/themeProvider';
 import Loader from '../Loader';
+import Filter from '../Filter';
+import './Filters.css'
 
-const FilterControls = () => {
+const Filters = () => {
   const { theme } = useTheme()
-  const { clearCompletedTasks, filteredTasks, filter, setFilter, loadingAction } = useTasks()
+  const { clearCompletedTasks, filteredTasks, setFilter, loadingAction } = useTasks()
+
+  const filters = ['All', 'Active', 'Completed']
 
   const handleClearCompleted = () => {
     toast.promise(
@@ -20,6 +23,10 @@ const FilterControls = () => {
     setFilter('ALL')
   }
 
+  const handleFilter = (filter) => {
+    setFilter(filter.toUpperCase())
+  }
+
   return (
     <div className={`
       filter-controls d-flex align-items-center justify-content-between py-3 px-4
@@ -28,20 +35,9 @@ const FilterControls = () => {
       <span className="">{`${filteredTasks.length} tasks left`}</span>
 
       <div className="filters d-flex gap-4">
-        <button
-          className={`btn btn-filter ${filter === 'ALL' && 'active'}`}
-          onClick={() => setFilter('ALL')}
-        >All</button>
-
-        <button
-          className={`btn btn-filter ${filter === 'ACTIVE' && 'active'}`}
-          onClick={() => setFilter('ACTIVE')}
-        >Active</button>
-
-        <button
-          className={`btn btn-filter ${filter === 'COMPLETED' && 'active'}`}
-          onClick={() => setFilter('COMPLETED')}
-        >Completed</button>
+        {filters.map((filter, index) => (
+          <Filter key={`filter-${index}`} filter={filter} onFilter={() => handleFilter(filter)} />
+        ))}
       </div>
 
       <button
@@ -55,4 +51,4 @@ const FilterControls = () => {
   )
 }
 
-export default FilterControls
+export default Filters

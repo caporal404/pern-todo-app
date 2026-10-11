@@ -27,7 +27,7 @@ export const taskService = {
     }
   },
 
-  async removeTask(id) {
+  async deleteTask(id) {
     try {
       await axios.delete(`${API_URL}/api/todos/${id}`)
       return true

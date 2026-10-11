@@ -2,7 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import { useTheme } from './providers/themeProvider'
 import TaskForm from './components/TaskForm/TaskForm';
 import TaskList from './components/TaskList/TaskList';
-import FilterControls from './components/FilterControls/FilterControls';
+import Filters from './components/Filters/Filters';
 import './App.css'
 
 import iconMoon from '/assets/images/icon-moon.svg'
@@ -31,7 +31,7 @@ function App() {
 
         <div className="shadow-lg rounded bg-white mt-4">
           <TaskList />
-          <FilterControls />
+          <Filters />
         </div>
       </div>
     </div>

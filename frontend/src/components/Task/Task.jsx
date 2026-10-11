@@ -1,19 +1,43 @@
 /* eslint-disable react/prop-types */
+import toast from "react-hot-toast";
 import { Reorder } from "framer-motion";
 import { useTasks } from "../../providers/taskProvider";
 import { useTheme } from "../../providers/themeProvider";
 import Loader from "../Loader";
 import "./Task.css";
-import toast from "react-hot-toast";
 
 const Task = ({ data: task }) => {
-  const { editedTask, setEditedTask, editTask, removeTask, loadingAction } = useTasks();
+  const { editedTask, setEditedTask, editTask, deleteTask, loadingAction } = useTasks();
   const { theme } = useTheme();
 
   // Determine if the task is currently being toggled, edited, or deleted
   const isToggling = loadingAction?.task === task.id && loadingAction?.type === "toggle";
   const isEditing = loadingAction?.task === task.id && loadingAction?.type === "edit";
   const isDeleting = loadingAction?.task === task.id && loadingAction?.type === "delete";
+
+  const handleToggle = () => {
+
+    toast.promise(
+      editTask(task, { isCompleted: !task.isCompleted }, "toggle"),
+      {
+        success: 'Task status updated!',
+        error: 'Error updating task status!'
+      }
+    )
+
+  }
+
+  const handleDelete = () => {
+
+    toast.promise(
+      deleteTask(task.id),
+      {
+        success: 'Task removed!',
+        error: 'Error removing task!'
+      }
+    )
+
+  }
 
   return (
     <Reorder.Item
@@ -27,14 +51,8 @@ const Task = ({ data: task }) => {
       <label className="w-100 d-flex align-items-center">
         <button
           type="button"
-          className={`task-toggle ${task.isCompleted ? "checked" : ""}`}
-          onClick={() => toast.promise(
-            editTask(task, { isCompleted: !task.isCompleted }, "toggle"),
-            {
-              success: 'Task status updated!',
-              error: 'Error updating task status!'
-            }
-          )}
+          className={`btn-toggle ${task.isCompleted ? "checked" : ""}`}
+          onClick={handleToggle}
           disabled={editedTask == task || loadingAction?.task === task.id}
         >
           {isToggling && <Loader />}
@@ -55,14 +73,8 @@ const Task = ({ data: task }) => {
         </button>
 
         <button
-          className="btn btn-remove"
-          onClick={() => toast.promise(
-            removeTask(task.id),
-            {
-              success: 'Task removed!',
-              error: 'Error removing task!'
-            }
-          )}
+          className="btn btn-delete"
+          onClick={handleDelete}
           disabled={loadingAction?.task === task.id}
         >
           {isDeleting ? <Loader /> : <i className="fas fa-trash-alt" />}

@@ -63,11 +63,11 @@ const TaskProvider = ({ children }) => {
     }
   }
 
-  const removeTask = async (id) => {
+  const deleteTask = async (id) => {
     try {
       setLoadingAction({ task: id, type: 'delete' })
 
-      await taskService.removeTask(id)
+      await taskService.deleteTask(id)
 
       setTasks(prevTasks => prevTasks.filter(task => task.id !== id))
     } catch (error) {
@@ -114,7 +114,7 @@ const TaskProvider = ({ children }) => {
       filter,
       setFilter,
       addTask,
-      removeTask,
+      deleteTask,
       editTask,
       clearCompletedTasks,
       fetchTasks,

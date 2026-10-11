@@ -3,7 +3,7 @@
   color: var(--purple-700);
 }
 
-.task-toggle {
+.btn-toggle {
   appearance: none;
   width: 20.85px;
   height: 20px;
@@ -16,12 +16,12 @@
   flex-shrink: 0;
 }
 
-.task-toggle.checked {
+.btn-toggle.checked {
   background: var(--gradient);
   border: 0;
 }
 
-.task-toggle.checked::after {
+.btn-toggle.checked::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -34,7 +34,7 @@
   border-width: 0 2px 2px 0;
 }
 
-.task:not(.completed):hover .task-toggle {
+.task:not(.completed):hover .btn-toggle {
   border-color: transparent;
   background: 
     linear-gradient(var(--current-bg)) padding-box,
@@ -77,12 +77,12 @@
   color: var(--gray-300);
 }
 
-.btn-remove {
+.btn-delete {
   color: var(--purple-600);
 }
 
 .btn-edit i,
-.task.completed .btn-remove i {
+.task.completed .btn-delete i {
   background: var(--gradient);
   background-clip: text;
   color: transparent;
@@ -112,11 +112,11 @@
   color: var(--purple-600);
 }
 
-.task.dark .task-toggle {
+.task.dark .btn-toggle {
   border-color: var(--purple-800);
 }
 
-.task.dark:not(.completed) .btn-remove {
+.task.dark:not(.completed) .btn-delete {
   color: var(--gray-600);
 }
 

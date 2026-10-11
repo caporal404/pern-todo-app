@@ -3,6 +3,7 @@ import { useTheme } from '../../providers/themeProvider';
 import { useTasks } from '../../providers/taskProvider';
 import './TaskForm.css'
 import toast from 'react-hot-toast';
+import { capitalize } from '../../utils';
 
 const TaskForm = () => {
   const { theme } = useTheme()
@@ -16,6 +17,11 @@ const TaskForm = () => {
   const inputRef = useRef()
   useLayoutEffect(() => inputRef.current.focus())
 
+  const handleChange = e => {
+    const value = e.target.value
+    setTask(capitalize(value))
+  }
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -23,7 +29,8 @@ const TaskForm = () => {
     if (task.trim() == "") {
       setTask("") // Clear input field
       setEditedTask(undefined) // Leave Edition Mode
-      console.error("Task only contain blank")
+
+      console.error("Task shouldn't be empty")
       return
     }
 
@@ -32,17 +39,18 @@ const TaskForm = () => {
       toast.promise(
         addTask(task),
         {
+          loading: 'Adding task...',
           success: 'Task added!',
           error: 'Error adding task!'
         }
       )
-    }
-    else {
+    } else {
       toast.promise(
         editTask(editedTask, { value: task }, 'edit'),
         {
-          success: 'Task updated!',
-          error: 'Error updating task!'
+          loading: 'Editing task...',
+          success: 'Task edited!',
+          error: 'Error editing task!'
         }
       )
     }
@@ -58,10 +66,7 @@ const TaskForm = () => {
           type="text"
           className='w-100 m-0 py-3 pe-3'
           value={task}
-          onChange={e => {
-            const value = e.target.value
-            setTask(value.charAt(0).toUpperCase() + value.slice(1))
-          }}
+          onChange={handleChange}
           placeholder="Ajouter une tâche..."
           ref={inputRef}
           required
